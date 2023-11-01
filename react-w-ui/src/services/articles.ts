@@ -1,6 +1,7 @@
 export interface Article {
 	title: string;
 	body: string;
+	image: string;
 }
 
 export const getArticles = async () => {

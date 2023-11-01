@@ -5,9 +5,11 @@ import Carousel from "../components/Carousel";
 import { Article, getArticles } from "../services/articles";
 import { Grid } from "@mui/material";
 import Hero from "../components/Hero";
+import Footer from "../components/Footer";
 
 const homeStyle = {
-  backgroundImage: `url('https://www.philhealth.gov.ph/images/bg_green.jpg')`,
+  // backgroundImage: `url('https://www.philhealth.gov.ph/images/bg_green.jpg')`,
+  background: "#FEFBF7",
 };
 
 function Home() {
@@ -26,11 +28,11 @@ function Home() {
       <Grid container>
           {
             articles.map((article)=> {
-              return <Hero title={article.title} body1={article.body} />
+              return <Hero image={article.image} title={article.title} body1={article.body} />
             })
           }
         </Grid>
-      <div>Links</div>
+      <Footer />
     </div>
   );
 }
