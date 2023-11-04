@@ -13,7 +13,6 @@ import {
   ListItemIcon,
   ListItemButton,
 } from "@mui/material";
-import styled from "@emotion/styled";
 import MenuIcon from "@mui/icons-material/Menu";
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import RememberMeRoundedIcon from "@mui/icons-material/RememberMeRounded";
@@ -26,11 +25,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 const appBarStyle = {
   backgroundColor: "#3e5c00",
 };
-
-const SearchBox = styled("div")({
-  display: "flex",
-  alignItems: "center",
-});
 
 function Navbar() {
   const navigate = useNavigate();
