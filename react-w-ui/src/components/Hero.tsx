@@ -20,7 +20,12 @@ const theme = createTheme({
 const Hero = (props: HeroProps) => {
   return (
     <ThemeProvider theme={theme}>
-      <Grid container sm={12} md={6} sx={{ display: "flex", padding: {md: 0.5, xs: 5} }}>
+      <Grid
+        container
+        sm={12}
+        md={6}
+        sx={{ display: "flex", padding: { md: 0.5, xs: 5 } }}
+      >
         <Box
           sx={{
             backgroundColor: "rgba(254, 251, 247, 1)",
@@ -29,16 +34,16 @@ const Hero = (props: HeroProps) => {
             },
             paddingY: {
               md: 4,
-              xs: 1
+              xs: 1,
             },
             marginY: 1,
             paddingX: {
               md: 7,
-              xs: 1
+              xs: 1,
             },
             display: "flex",
             flexDirection: "column",
-            textAlign: "justify"
+            textAlign: "justify",
           }}
         >
           <div
@@ -65,7 +70,16 @@ const Hero = (props: HeroProps) => {
 
           <Box>{props.header && <Box>{props.header}</Box>}</Box>
           <Box>
-            {props.title && <Typography variant="h3" sx={{ fontWeight: 'bold' }}>{props.title}</Typography>}
+            {props.title && (
+              <Typography
+                variant="h3"
+                sx={{
+                  fontWeight: "bold",
+                }}
+              >
+                {props.title}
+              </Typography>
+            )}
             {props.subTitle && (
               <Typography variant="h6">{props.subTitle}</Typography>
             )}

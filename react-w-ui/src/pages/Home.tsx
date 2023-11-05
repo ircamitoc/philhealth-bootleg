@@ -7,11 +7,6 @@ import { Grid } from "@mui/material";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 
-const homeStyle = {
-  // backgroundImage: `url('https://www.philhealth.gov.ph/images/bg_green.jpg')`,
-  background: "#FEFBF7",
-};
-
 function Home() {
   const [articles, setArticles] = useState<Array<Article>>([]);
   console.log(articles.length)
@@ -38,3 +33,8 @@ function Home() {
 }
 
 export default Home;
+
+const homeStyle = {
+  // backgroundImage: `url('https://www.philhealth.gov.ph/images/bg_green.jpg')`,
+  background: "#FEFBF7",
+};
