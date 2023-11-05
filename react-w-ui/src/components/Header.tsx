@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   AppBar,
   Toolbar,
   styled,
-  IconButton,
-  Menu,
-  MenuItem,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 
 const appBarStyle = {
-  backgroundColor: "#FEFBF7",
+  // backgroundColor: "#FEFBF7",
+  backgroundColor: "#0E460E"
 };
 
 const HeaderContainer = styled("div")({
@@ -27,18 +24,8 @@ const LogoContainer = styled("div")({
 });
 
 function Header() {
-  const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
-
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setMobileMenuAnchor(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMenuAnchor(null);
-  };
-
   return (
-    <AppBar position="static" style={appBarStyle}>
+    <AppBar position="sticky" style={appBarStyle}>
       <Toolbar>
         <HeaderContainer>
           <LogoContainer>
@@ -54,26 +41,6 @@ function Header() {
             />
           </LogoContainer>
         </HeaderContainer>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleMobileMenuOpen}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-
-        <Menu
-          anchorEl={mobileMenuAnchor}
-          open={Boolean(mobileMenuAnchor)}
-          onClose={handleMobileMenuClose}
-        >
-          <MenuItem onClick={handleMobileMenuClose}>Item 1</MenuItem>
-          <MenuItem onClick={handleMobileMenuClose}>Item 2</MenuItem>
-          <MenuItem onClick={handleMobileMenuClose}>Item 3</MenuItem>
-        </Menu>
       </Toolbar>
     </AppBar>
   );
