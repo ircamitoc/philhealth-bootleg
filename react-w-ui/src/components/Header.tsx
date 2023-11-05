@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
   styled,
-  useTheme,
+  IconButton,
+  Menu,
+  MenuItem,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import IconButton from "@mui/material/IconButton";
-import { SearchBar } from "../styles/search-bar/SearchBar";
-import { SearchIconWrapper } from "../styles/search-bar/SearchIconWrapper";
-import { StyledInputBase } from "../styles/search-bar/StyledInputBase";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const appBarStyle = {
   backgroundColor: "#FEFBF7",
@@ -30,7 +27,15 @@ const LogoContainer = styled("div")({
 });
 
 function Header() {
-  const theme = useTheme();
+  const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
+
+  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setMobileMenuAnchor(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMenuAnchor(null);
+  };
 
   return (
     <AppBar position="static" style={appBarStyle}>
@@ -48,26 +53,27 @@ function Header() {
               loading="lazy"
             />
           </LogoContainer>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <SearchBar>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </SearchBar>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
         </HeaderContainer>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleMobileMenuOpen}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+
+        <Menu
+          anchorEl={mobileMenuAnchor}
+          open={Boolean(mobileMenuAnchor)}
+          onClose={handleMobileMenuClose}
+        >
+          <MenuItem onClick={handleMobileMenuClose}>Item 1</MenuItem>
+          <MenuItem onClick={handleMobileMenuClose}>Item 2</MenuItem>
+          <MenuItem onClick={handleMobileMenuClose}>Item 3</MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );

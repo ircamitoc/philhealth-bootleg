@@ -158,6 +158,7 @@ function Navbar() {
               <YellowHoverButton>Downloads</YellowHoverButton>
             </Button>
           </Box>
+          {/*Hamburger*/}
           <Box
             sx={{
               display: { xs: "block", md: "none" },
@@ -171,7 +172,7 @@ function Navbar() {
           </Box>
         </Toolbar>
       </Container>
-      <Drawer anchor="bottom" open={mobileMenuOpen} onClose={toggleMobileMenu}>
+      <Drawer anchor="left" open={mobileMenuOpen} onClose={toggleMobileMenu}>
         <List style={appBarStyle}>
           <ListItem disablePadding>
             <ListItemButton onClick={goToAboutUs}>

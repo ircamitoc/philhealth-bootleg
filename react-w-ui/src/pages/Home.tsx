@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import Carousel from "../components/Carousel";
 import { Article, getArticles } from "../services/articles";
 import { Grid } from "@mui/material";
@@ -18,7 +18,7 @@ function Home() {
   return (
     <div className="Home" style={homeStyle}>
       <Header />
-      <Navbar />
+      {/* <Navbar /> */}
       <Carousel />
       <Grid container>
           {

@@ -24,19 +24,21 @@ const Hero = (props: HeroProps) => {
         container
         sm={12}
         md={6}
-        sx={{ display: "flex", padding: { md: 0.5, xs: 5 } }}
+        sx={{ display: "flex", padding: { md: 0.5, xs: 5 }, backgroundColor: "rgba(246, 246, 233, 1)" }}
       >
         <Box
           sx={{
-            backgroundColor: "rgba(254, 251, 247, 1)",
+            backgroundColor: "rgba(246, 246, 233, 1)",
             marginX: {
               md: 4,
             },
             paddingY: {
-              md: 4,
+              md: 6,
               xs: 1,
             },
-            marginY: 1,
+            marginY: {
+              xs: 1,
+            },
             paddingX: {
               md: 7,
               xs: 1,
