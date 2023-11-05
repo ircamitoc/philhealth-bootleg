@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv'
 import * as core from "express-serve-static-core";
-import { SampleData } from './data/datasources';
 import { articles } from "./data/articles";
+import { navigationData } from "./data/navigation"
 import { getConnection } from './db';
 
 dotenv.config()
@@ -20,10 +20,6 @@ const startServer = (app: core.Express) => {
     })
   })
 
-  app.get("/data-get", (req, res) => {
-    return res.status(200).send(SampleData);
-  })
-
   app.get("/articles/get", (req, res) => {
     getConnection().then(async (db) => {
       const articleC = db.collection('articles').find({});
@@ -32,6 +28,16 @@ const startServer = (app: core.Express) => {
       res.status(200).send(articles);
     })
   })
+
+  app.get("/navigation/get", (req, res) => {
+    getConnection().then(async (db) => {
+      const navData = await db.collection('navigationData').find({}).toArray();
+      console.log("navData", navData);
+      res.status(200).send(navData);
+    });
+  });
+  
+
 
   app.listen(PORT, async () => {
     console.log(`Listening on port ${PORT}`)

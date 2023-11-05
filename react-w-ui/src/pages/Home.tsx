@@ -6,6 +6,8 @@ import { Article, getArticles } from "../services/articles";
 import { Grid } from "@mui/material";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
+import NavigationBar from "../components/Navbarv2";
+
 
 function Home() {
   const [articles, setArticles] = useState<Array<Article>>([]);
@@ -17,8 +19,8 @@ function Home() {
 
   return (
     <div className="Home" style={homeStyle}>
-      <Header />
-      {/* <Navbar /> */}
+      {/* <Header /> */}
+      <NavigationBar/>
       <Carousel />
       <Grid container>
           {
