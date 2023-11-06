@@ -5,17 +5,23 @@ import {
   Button,
   Menu,
   MenuItem,
+  Drawer,
+  IconButton,
   styled,
   createTheme,
   ThemeProvider,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { NavigationItem, getNavigation } from "../services/navigation";
+import MenuIcon from "@mui/icons-material/Menu";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const NavigationBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [navigationData, setNavigationData] = useState<NavigationItem[]>([]);
+  const [isUpdatesOpen, setIsUpdatesOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const theme = createTheme({
     typography: {
@@ -23,6 +29,8 @@ const NavigationBar: React.FC = () => {
     },
   });
 
+  const isMobileOrTablet = useMediaQuery("(max-width: 100px)");
+  
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
     setIsSticky(scrollPosition > 0);
@@ -82,9 +90,7 @@ const NavigationBar: React.FC = () => {
       >
         <Toolbar>
           <LogoContainer>
-            <a
-              href="/"
-            >
+            <a href="/">
               <LogoImage
                 src="https://www.philhealth.gov.ph/images/ph_logo0.png"
                 alt="philhealth-logo"
@@ -107,13 +113,33 @@ const NavigationBar: React.FC = () => {
               marginTop: isSticky ? 0 : 5,
             }}
           >
-            {navigationData.map((item: NavigationItem) => (
-              <div key={item.text}>
-                {item.route ? (
-                  <Link
-                    to={item.route as string}
-                    style={{ textDecoration: "none" }}
-                  >
+            {isMobileOrTablet ? (
+              <IconButton
+                color="inherit"
+                onClick={() => setDrawerOpen(true)}
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : (
+              navigationData.map((item: NavigationItem) => (
+                <div key={item.text}>
+                  {item.route ? (
+                    <Link to={item.route as string} style={{ textDecoration: "none" }}>
+                      <Button
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                        style={{
+                          margin: "0 10px",
+                          color: isSticky ? "rgba(246, 246, 233, 1)" : "#0E460E",
+                          fontWeight: "bold",
+                          fontSize: "1rem",
+                        }}
+                      >
+                        {item.text}
+                      </Button>
+                    </Link>
+                  ) : (
                     <Button
                       aria-controls="simple-menu"
                       aria-haspopup="true"
@@ -127,58 +153,58 @@ const NavigationBar: React.FC = () => {
                     >
                       {item.text}
                     </Button>
-                  </Link>
-                ) : (
-                  <Button
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                    style={{
-                      margin: "0 10px",
-                      color: isSticky ? "rgba(246, 246, 233, 1)" : "#0E460E",
-                      fontWeight: "bold",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    {item.text}
-                  </Button>
-                )}
+                  )}
 
-                {item.subitems && (
-                  <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  >
-                    {item.subitems.map((subitem: NavigationItem) => (
-                      <Link
-                        to={subitem.route as string}
-                        key={subitem.text}
-                        style={{
-                          textDecoration: "none",
-                          fontWeight: "bold",
-                          fontSize: "1rem",
-                        }}
-                      >
-                        <MenuItem
-                          onClick={handleClose}
-                          sx={{
-                            color: "#0E460E",
+                  {item.subitems && (
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      {item.subitems.map((subitem: NavigationItem) => (
+                        <Link
+                          to={subitem.route as string}
+                          key={subitem.text}
+                          style={{
+                            textDecoration: "none",
+                            fontWeight: "bold",
+                            fontSize: "1rem",
                           }}
                         >
-                          {subitem.text}
-                        </MenuItem>
-                      </Link>
-                    ))}
-                  </Menu>
-                )}
-              </div>
-            ))}
+                          <MenuItem
+                            onClick={handleClose}
+                            sx={{
+                              color: "#0E460E",
+                            }}
+                          >
+                            {subitem.text}
+                          </MenuItem>
+                        </Link>
+                      ))}
+                    </Menu>
+                  )}
+                </div>
+              ))
+            )}
           </div>
         </Toolbar>
       </AppBar>
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        {/* Add your navigation links and items here */}
+        {navigationData.map((item: NavigationItem) => (
+          <Link to={item.route as string} key={item.text} style={{ textDecoration: "none" }}>
+            <MenuItem onClick={() => setDrawerOpen(false)}>
+              {item.text}
+            </MenuItem>
+          </Link>
+        ))}
+      </Drawer>
     </ThemeProvider>
   );
 };
