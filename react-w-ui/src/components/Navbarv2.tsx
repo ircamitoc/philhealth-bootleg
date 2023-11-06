@@ -19,7 +19,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const NavigationBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [navigationData, setNavigationData] = useState<NavigationItem[]>([]);
-  const [isUpdatesOpen, setIsUpdatesOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
