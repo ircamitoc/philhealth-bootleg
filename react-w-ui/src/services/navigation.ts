@@ -1,4 +1,5 @@
 export interface NavigationItem {
+    open: boolean;
     text: string;
     route?: string;
     subitems?: NavigationItem[];

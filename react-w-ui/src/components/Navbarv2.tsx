@@ -10,10 +10,16 @@ import {
   styled,
   createTheme,
   ThemeProvider,
+  Collapse,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { NavigationItem, getNavigation } from "../services/navigation";
 import MenuIcon from "@mui/icons-material/Menu";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const NavigationBar: React.FC = () => {
@@ -21,6 +27,7 @@ const NavigationBar: React.FC = () => {
   const [navigationData, setNavigationData] = useState<NavigationItem[]>([]);
   const [isSticky, setIsSticky] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [subItemOpen, setSubItemOpen] = useState(false);
 
   const theme = createTheme({
     typography: {
@@ -28,8 +35,8 @@ const NavigationBar: React.FC = () => {
     },
   });
 
-  const isMobileOrTablet = useMediaQuery("(max-width: 100px)");
-  
+  const isMobileOrTablet = useMediaQuery("(max-width: 1073px)");
+
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
     setIsSticky(scrollPosition > 0);
@@ -76,6 +83,10 @@ const NavigationBar: React.FC = () => {
     setAnchorEl(null);
   };
 
+  const handleSubItemClick = () => {
+    setSubItemOpen(!subItemOpen);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar
@@ -114,8 +125,10 @@ const NavigationBar: React.FC = () => {
           >
             {isMobileOrTablet ? (
               <IconButton
-                color="inherit"
                 onClick={() => setDrawerOpen(true)}
+                style={{
+                  color: isSticky ? "rgba(246, 246, 233, 1)" : "#0E460E",
+                }}
               >
                 <MenuIcon />
               </IconButton>
@@ -123,14 +136,19 @@ const NavigationBar: React.FC = () => {
               navigationData.map((item: NavigationItem) => (
                 <div key={item.text}>
                   {item.route ? (
-                    <Link to={item.route as string} style={{ textDecoration: "none" }}>
+                    <Link
+                      to={item.route as string}
+                      style={{ textDecoration: "none" }}
+                    >
                       <Button
                         aria-controls="simple-menu"
                         aria-haspopup="true"
                         onClick={handleClick}
                         style={{
                           margin: "0 10px",
-                          color: isSticky ? "rgba(246, 246, 233, 1)" : "#0E460E",
+                          color: isSticky
+                            ? "rgba(246, 246, 233, 1)"
+                            : "#0E460E",
                           fontWeight: "bold",
                           fontSize: "1rem",
                         }}
@@ -162,26 +180,69 @@ const NavigationBar: React.FC = () => {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                     >
-                      {item.subitems.map((subitem: NavigationItem) => (
-                        <Link
-                          to={subitem.route as string}
-                          key={subitem.text}
-                          style={{
-                            textDecoration: "none",
-                            fontWeight: "bold",
-                            fontSize: "1rem",
-                          }}
-                        >
-                          <MenuItem
-                            onClick={handleClose}
-                            sx={{
-                              color: "#0E460E",
+                      {isMobileOrTablet ? (
+                        <div>
+                          <ListItem onClick={handleSubItemClick}>
+                            <ListItemText
+                              primary={item.text}
+                              primaryTypographyProps={{
+                                color: "primary",
+                                variant: "button",
+                              }}
+                            />
+                            {subItemOpen ? <ExpandLess /> : <ExpandMore />}
+                          </ListItem>
+                          <Collapse
+                            in={subItemOpen}
+                            timeout="auto"
+                            unmountOnExit
+                          >
+                            <List>
+                              {item.subitems.map((subitem: NavigationItem) => (
+                                <Link
+                                  to={subitem.route as string}
+                                  key={subitem.text}
+                                  style={{
+                                    textDecoration: "none",
+                                    fontWeight: "bold",
+                                    fontSize: "1rem",
+                                  }}
+                                >
+                                  <MenuItem
+                                    onClick={handleClose}
+                                    sx={{
+                                      color: "#0E460E",
+                                    }}
+                                  >
+                                    {subitem.text}
+                                  </MenuItem>
+                                </Link>
+                              ))}
+                            </List>
+                          </Collapse>
+                        </div>
+                      ) : (
+                        item.subitems.map((subitem: NavigationItem) => (
+                          <Link
+                            to={subitem.route as string}
+                            key={subitem.text}
+                            style={{
+                              textDecoration: "none",
+                              fontWeight: "bold",
+                              fontSize: "1rem",
                             }}
                           >
-                            {subitem.text}
-                          </MenuItem>
-                        </Link>
-                      ))}
+                            <MenuItem
+                              onClick={handleClose}
+                              sx={{
+                                color: "#0E460E",
+                              }}
+                            >
+                              {subitem.text}
+                            </MenuItem>
+                          </Link>
+                        ))
+                      )}
                     </Menu>
                   )}
                 </div>
@@ -195,13 +256,68 @@ const NavigationBar: React.FC = () => {
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
-        {/* Add your navigation links and items here */}
         {navigationData.map((item: NavigationItem) => (
-          <Link to={item.route as string} key={item.text} style={{ textDecoration: "none" }}>
-            <MenuItem onClick={() => setDrawerOpen(false)}>
-              {item.text}
-            </MenuItem>
-          </Link>
+          <div key={item.text}>
+            {item.route ? (
+              <Link
+                to={item.route as string}
+                style={{ textDecoration: "none" }}
+              >
+                <ListItem onClick={() => setDrawerOpen(false)}>
+                  <ListItemText
+                    primary={item.text}
+                    primaryTypographyProps={{
+                      color: "#0E460E",
+                      variant: "button",
+                      fontWeight: "bold",
+                    }}
+                  />
+                </ListItem>
+              </Link>
+            ) : (
+              <ListItem onClick={handleSubItemClick}>
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{
+                    color: "#0E460E",
+                    variant: "button",
+                    fontWeight: "bold",
+                  }}
+                />
+                {subItemOpen ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+            )}
+
+            {item.subitems && (
+              <Collapse in={subItemOpen} timeout="auto" unmountOnExit>
+                <List>
+                  {item.subitems.map((subitem: NavigationItem) => (
+                    <Link
+                      to={subitem.route as string}
+                      key={subitem.text}
+                      style={{
+                        textDecoration: "none",
+                        fontWeight: "bold",
+                        fontSize: "1rem",
+                      }}
+                    >
+                      <ListItem onClick={() => setDrawerOpen(false)}>
+                        <ListItemText
+                          primary={subitem.text}
+                          primaryTypographyProps={{
+                            color: "#0E460E",
+                            variant: "button",
+                            fontWeight: "bold",
+                            paddingLeft: "20px",
+                          }}
+                        />
+                      </ListItem>
+                    </Link>
+                  ))}
+                </List>
+              </Collapse>
+            )}
+          </div>
         ))}
       </Drawer>
     </ThemeProvider>
