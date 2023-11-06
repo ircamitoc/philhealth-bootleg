@@ -24,7 +24,11 @@ const Hero = (props: HeroProps) => {
         container
         sm={12}
         md={6}
-        sx={{ display: "flex", padding: { md: 0.5, xs: 5 }, backgroundColor: "rgba(246, 246, 233, 1)" }}
+        sx={{
+          display: "flex",
+          padding: { md: 0.5, xs: 5 },
+          backgroundColor: "rgba(246, 246, 233, 1)",
+        }}
       >
         <Box
           sx={{
@@ -76,7 +80,7 @@ const Hero = (props: HeroProps) => {
               <Typography
                 variant="h3"
                 sx={{
-                  fontWeight: "bold",
+                  fontWeight: 800,
                 }}
               >
                 {props.title}

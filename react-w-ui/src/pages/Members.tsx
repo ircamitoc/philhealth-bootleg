@@ -1,17 +1,163 @@
 import React from "react";
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
+import Navbar2 from "../components/Navbarv2";
+import Footer from "../components/Footer";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Grid, Typography } from "@mui/material";
 
-const membersStyle = {
-  backgroundImage: `url('https://www.philhealth.gov.ph/images/bg_green.jpg')`,
-};
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins, Arial, sans-serif",
+  },
+});
 
 function Members() {
   return (
-    <div className="Members" style={membersStyle}>
-      <Header />
-      <Navbar />
-      <div>Links</div>
+    <div className="Members">
+      <Navbar2 />
+      <ThemeProvider theme={theme}>
+        <Grid
+          container
+          sx={{
+            display: "flex",
+            paddingX: {
+              md: 8,
+              xs: 5,
+            },
+            paddingY: {
+              md: 4,
+              xs: 3,
+            },
+            backgroundColor: "rgba(246, 246, 233, 1)",
+          }}
+        >
+          <Grid xs={12}>
+            <img
+              src="https://www.philhealth.gov.ph/members/images/mbrs_bnnr.jpg"
+              alt="member-img"
+              style={{ width: "100%", height: "auto", borderRadius: "20px" }}
+            />
+          </Grid>
+          <Grid xs={6} style={{ padding: "20px" }}>
+            <Typography
+              variant="h3"
+              style={{
+                fontWeight: "bold",
+                color: "#0e460e",
+                textAlign: "center",
+                marginTop: 20,
+                marginBottom: 20,
+              }}
+            >
+              Direct Contribution
+            </Typography>
+            <Grid
+              xs={12}
+              style={{
+                backgroundColor: "#e0e0e0",
+                padding: 20,
+                borderRadius: "20px",
+                marginTop: 10,
+              }}
+            >
+              <Typography variant="body1">
+                <ul>
+                  <a
+                    href="https://www.philhealth.gov.ph/members/formal/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "underline", color: "inherit" }}
+                  >
+                    <li>Employees with formal employment</li>
+                  </a>
+                  <li>Kasambahays</li>
+                  <a
+                    href="https://www.philhealth.gov.ph/members/informal/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "underline", color: "inherit" }}
+                  >
+                    <li>
+                      Self-earning individuals; Professional practitioners
+                    </li>
+                  </a>
+                  <li>Overseas Filipino Workers</li>
+                  <li>
+                    Filipinos living abroad and those with dual citizenship
+                  </li>
+                  <a
+                    href="https://www.philhealth.gov.ph/members/lifetime/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "underline", color: "inherit" }}
+                  >
+                    <li>Lifetime members</li>
+                  </a>
+                  <li>
+                    All Filipinos aged 21 years and above with capacity to pay
+                  </li>
+                </ul>
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid xs={6} style={{ padding: "20px" }}>
+            <Typography
+              variant="h3"
+              style={{
+                fontWeight: "bold",
+                color: "#0e460e",
+                textAlign: "center",
+                marginTop: 20,
+                marginBottom: 20,
+              }}
+            >
+              Indirect Contribution
+            </Typography>
+            <Grid
+              xs={12}
+              style={{
+                backgroundColor: "#e0e0e0",
+                padding: 20,
+                borderRadius: "20px",
+                marginTop: 10,
+              }}
+            >
+              <Typography variant="body1">
+                <ul>
+                  <a
+                    href="https://www.philhealth.gov.ph/members/sponsored/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "underline", color: "inherit" }}
+                  >
+                    <li>Indigents identified by the DSWD</li>
+                  </a>
+                  <li>Beneficiaries of Pantawid Pamilyang Pilipino Program</li>
+                  <a
+                    href="https://www.philhealth.gov.ph/members/senior/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "underline", color: "inherit" }}
+                  >
+                    <li>Senior citizens</li>
+                  </a>
+                  <li>Persons with disability</li>
+                  <li>Sangguniang Kabataan officials</li>
+                  <li>
+                    Previously identified at point-of-service / sponsored by
+                    LGUs
+                  </li>
+                  <li>
+                    Filipinos aged 21 years old and above without capacity to
+                    pay premiums
+                  </li>
+                </ul>
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </ThemeProvider>
+      <Footer />
     </div>
   );
 }
