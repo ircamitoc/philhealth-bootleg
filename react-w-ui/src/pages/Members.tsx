@@ -59,7 +59,7 @@ function Members() {
                 marginTop: 10,
               }}
             >
-              <Typography variant="body1">
+              <Typography variant="h6">
                 <ul>
                   <a
                     href="https://www.philhealth.gov.ph/members/formal/"
@@ -120,9 +120,10 @@ function Members() {
                 padding: 20,
                 borderRadius: "20px",
                 marginTop: 10,
+                display: "flex"
               }}
             >
-              <Typography variant="body1">
+              <Typography variant="h6">
                 <ul>
                   <a
                     href="https://www.philhealth.gov.ph/members/sponsored/"
