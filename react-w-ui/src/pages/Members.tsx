@@ -21,7 +21,7 @@ function Members() {
             display: "flex",
             paddingX: {
               md: 8,
-              xs: 5,
+              xs: 2, // Adjust left and right padding for smaller screens
             },
             paddingY: {
               md: 4,
@@ -37,15 +37,15 @@ function Members() {
               style={{ width: "100%", height: "auto", borderRadius: "20px" }}
             />
           </Grid>
-          <Grid xs={6} style={{ padding: "20px" }}>
+          <Grid xs={12} md={6} sx={{ padding: { xs: 3, md: 4 } }}>
             <Typography
               variant="h3"
-              style={{
+              sx={{
                 fontWeight: "bold",
                 color: "#0e460e",
                 textAlign: "center",
-                marginTop: 20,
-                marginBottom: 20,
+                marginTop: 2,
+                marginBottom: 2,
               }}
             >
               Direct Contribution
@@ -54,9 +54,9 @@ function Members() {
               xs={12}
               style={{
                 backgroundColor: "#e0e0e0",
-                padding: 20,
+                padding: 2,
                 borderRadius: "20px",
-                marginTop: 10,
+                marginTop: 2,
               }}
             >
               <Typography variant="h6">
@@ -76,14 +76,10 @@ function Members() {
                     rel="noopener noreferrer"
                     style={{ textDecoration: "underline", color: "inherit" }}
                   >
-                    <li>
-                      Self-earning individuals; Professional practitioners
-                    </li>
+                    <li>Self-earning individuals; Professional practitioners</li>
                   </a>
                   <li>Overseas Filipino Workers</li>
-                  <li>
-                    Filipinos living abroad and those with dual citizenship
-                  </li>
+                  <li>Filipinos living abroad and those with dual citizenship</li>
                   <a
                     href="https://www.philhealth.gov.ph/members/lifetime/"
                     target="_blank"
@@ -93,22 +89,23 @@ function Members() {
                     <li>Lifetime members</li>
                   </a>
                   <li>
-                    All Filipinos aged 21 years and above with capacity to pay
+                    All Filipinos aged 21 years and above with the capacity to
+                    pay
                   </li>
                 </ul>
               </Typography>
             </Grid>
           </Grid>
 
-          <Grid xs={6} style={{ padding: "20px" }}>
+          <Grid xs={12} md={6} sx={{ padding: { xs: 3, md: 4 } }}>
             <Typography
               variant="h3"
-              style={{
+              sx={{
                 fontWeight: "bold",
                 color: "#0e460e",
                 textAlign: "center",
-                marginTop: 20,
-                marginBottom: 20,
+                marginTop: 2,
+                marginBottom: 2,
               }}
             >
               Indirect Contribution
@@ -117,10 +114,9 @@ function Members() {
               xs={12}
               style={{
                 backgroundColor: "#e0e0e0",
-                padding: 20,
+                padding: 2,
                 borderRadius: "20px",
-                marginTop: 10,
-                display: "flex"
+                marginTop: 2,
               }}
             >
               <Typography variant="h6">
@@ -142,14 +138,13 @@ function Members() {
                   >
                     <li>Senior citizens</li>
                   </a>
-                  <li>Persons with disability</li>
+                  <li>Persons with disabilities</li>
                   <li>Sangguniang Kabataan officials</li>
                   <li>
-                    Previously identified at point-of-service / sponsored by
-                    LGUs
+                    Previously identified at point-of-service / sponsored by LGUs
                   </li>
                   <li>
-                    Filipinos aged 21 years old and above without capacity to
+                    Filipinos aged 21 years old and above without the capacity to
                     pay premiums
                   </li>
                 </ul>

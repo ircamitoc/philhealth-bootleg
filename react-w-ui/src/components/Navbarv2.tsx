@@ -35,7 +35,7 @@ const NavigationBar: React.FC = () => {
     },
   });
 
-  const isMobileOrTablet = useMediaQuery("(max-width: 1073px)");
+  const isMobileOrTablet = useMediaQuery("(max-width: 1170px)");
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
