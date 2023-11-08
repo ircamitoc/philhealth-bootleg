@@ -4,7 +4,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const AutoPlayCarousel: React.FC = () => {
   return (
-    <Carousel autoPlay infiniteLoop interval={3500} transitionTime={2500} showThumbs={false} showStatus={false}>
+    <Carousel autoPlay infiniteLoop interval={2750} transitionTime={2500} showThumbs={false} showStatus={false}>
       <div>
         <img src="https://www.philhealth.gov.ph/images/thankyou_bnnr01.jpg" alt="" />
       </div>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
+import { Divider } from "@mui/material";
 
 function DisclaimerModal() {
   const [open, setOpen] = useState(false);
@@ -20,7 +21,7 @@ function DisclaimerModal() {
         onClick={handleOpen}
         style={{ cursor: "pointer", textDecoration: "none", color: "inherit" }}
       >
-        <Typography variant="h5">Disclaimer</Typography>
+        <Typography variant="h5" sx={{ "&:hover": {textDecoration: "underline"}}}>Disclaimer</Typography>
       </a>
       <Modal
         open={open}
@@ -42,9 +43,10 @@ function DisclaimerModal() {
             border: "10px solid #56BEAA"
           }}
         >
-          <Typography variant="h5" id="modal-title">
+          <Typography variant="h4" id="modal-title" sx={{ fontWeight: "bold" }}>
             Disclaimer
           </Typography>
+          <Divider variant="fullWidth" />
           <Typography variant="body1" id="modal-description">
             The PhilHealth Logo, Photographs and information on this Web Site
             may not be reproduced, copied, or downloaded in any form or by any

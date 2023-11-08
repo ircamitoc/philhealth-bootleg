@@ -3,6 +3,22 @@ import Navbar2 from "../components/Navbarv2";
 import Footer from "../components/Footer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Grid, Typography } from "@mui/material";
+import styled, { keyframes } from 'styled-components';
+
+const fadeUp = keyframes`
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+`;
+
+const AnimationContainer = styled.div`
+  animation: ${fadeUp} 0.5s;
+`;
 
 const theme = createTheme({
   typography: {
@@ -15,6 +31,7 @@ function Members() {
     <div className="Members">
       <Navbar2 />
       <ThemeProvider theme={theme}>
+        <AnimationContainer>
         <Grid
           container
           sx={{
@@ -28,6 +45,7 @@ function Members() {
               xs: 3,
             },
             backgroundColor: "rgba(246, 246, 233, 1)",
+
           }}
         >
           <Grid xs={12}>
@@ -152,6 +170,7 @@ function Members() {
             </Grid>
           </Grid>
         </Grid>
+        </AnimationContainer>
       </ThemeProvider>
       <Footer />
     </div>

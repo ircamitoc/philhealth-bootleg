@@ -1,4 +1,5 @@
 export interface NavigationItem {
+    position: any;
     open: boolean;
     text: string;
     route?: string;

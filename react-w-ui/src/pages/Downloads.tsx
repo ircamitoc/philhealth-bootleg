@@ -2,13 +2,29 @@ import React from "react";
 import Navbar2 from "../components/Navbarv2";
 import Footer from "../components/Footer";
 import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
-import { Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import { keyframes } from '@mui/system';
+
+const fadeUp = keyframes`
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+`;
+
+const AnimationContainer = styled('div')`
+  animation: ${fadeUp} 0.5s;
+`;
 
 const theme = createTheme({
   typography: {
@@ -62,8 +78,9 @@ function Downloads() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Navbar2 />
+      <AnimationContainer>
       <div className="Downloads">
-        <Navbar2 />
         <Grid
           container
           sx={{
@@ -118,9 +135,10 @@ function Downloads() {
                     rel="noopener noreferrer"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <img
+                    <Box component="img"
                       src="https://www.philhealth.gov.ph/downloads/images/Forms.png"
                       alt=""
+                      sx={{width: {xs: "100%", md: "30%"}}}
                     />
                   </a>
                 </AccordionDetails>
@@ -146,9 +164,10 @@ function Downloads() {
                     rel="noopener noreferrer"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <img
+                    <Box component="img"
                       src="https://www.philhealth.gov.ph/downloads/images/Accreditation.png"
                       alt=""
+                      sx={{width: {xs: "100%", md: "30%"}}}
                     />
                   </a>
                 </AccordionDetails>
@@ -174,9 +193,10 @@ function Downloads() {
                     rel="noopener noreferrer"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <img
+                    <Box component="img"
                       src="https://www.philhealth.gov.ph/downloads/images/ZBenefits.png"
                       alt=""
+                      sx={{width: {xs: "100%", md: "30%"}}}
                     />
                   </a>
                 </AccordionDetails>
@@ -202,9 +222,10 @@ function Downloads() {
                     rel="noopener noreferrer"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <img
+                    <Box component="img"
                       src="https://www.philhealth.gov.ph/downloads/images/Konsulta.png"
                       alt=""
+                      sx={{width: {xs: "100%", md: "30%"}}}
                     />
                   </a>
                 </AccordionDetails>
@@ -232,9 +253,10 @@ function Downloads() {
                     rel="noopener noreferrer"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <img
+                    <Box component="img"
                       src="https://www.philhealth.gov.ph/downloads/images/IECmats.png"
                       alt=""
+                      sx={{width: {xs: "100%", md: "30%"}}}
                     />
                   </a>
                 </AccordionDetails>
@@ -244,6 +266,8 @@ function Downloads() {
         </Grid>
         <Footer />
       </div>
+      </AnimationContainer>
+      
     </ThemeProvider>
   );
 }

@@ -7,7 +7,6 @@ import {
   MenuItem,
   Drawer,
   IconButton,
-  styled,
   createTheme,
   ThemeProvider,
   Collapse,
@@ -21,6 +20,22 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import styled, { keyframes } from "styled-components";
+
+const fadeDown = keyframes`
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+`;
+
+const AnimationContainer = styled.div`
+  animation: ${fadeDown} 0.5s;
+`;
 
 const NavigationBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -87,6 +102,22 @@ const NavigationBar: React.FC = () => {
     setSubItemOpen(!subItemOpen);
   };
 
+  navigationData.sort((a, b) => {
+    const order = [
+      "about us",
+      "members",
+      "our partners",
+      "online services",
+      "downloads",
+      "updates",
+    ];
+
+    const positionA = order.indexOf(a.text.toLowerCase());
+    const positionB = order.indexOf(b.text.toLowerCase());
+
+    return positionA - positionB;
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar
@@ -98,48 +129,66 @@ const NavigationBar: React.FC = () => {
           height: isSticky ? "65px" : "75px",
         }}
       >
-        <Toolbar>
-          <LogoContainer>
-            <a href="/">
-              <LogoImage
-                src="https://www.philhealth.gov.ph/images/ph_logo0.png"
-                alt="philhealth-logo"
+        <AnimationContainer>
+          <Toolbar>
+            <LogoContainer>
+              <a href="/">
+                <LogoImage
+                  src="https://www.philhealth.gov.ph/images/ph_logo0.png"
+                  alt="philhealth-logo"
+                  loading="lazy"
+                  style={{ display: "inline-block", verticalAlign: "middle" }}
+                />
+              </a>
+
+              <BagongPilipinasLogo
+                src="https://www.philhealth.gov.ph/images/bagong_pilipinas_logo3.png"
+                alt="bagong-pilipinas"
                 loading="lazy"
                 style={{ display: "inline-block", verticalAlign: "middle" }}
               />
-            </a>
-
-            <BagongPilipinasLogo
-              src="https://www.philhealth.gov.ph/images/bagong_pilipinas_logo3.png"
-              alt="bagong-pilipinas"
-              loading="lazy"
-              style={{ display: "inline-block", verticalAlign: "middle" }}
-            />
-          </LogoContainer>
-          <div
-            style={{
-              marginLeft: "auto",
-              display: "flex",
-              marginTop: isSticky ? 0 : 5,
-            }}
-          >
-            {isMobileOrTablet ? (
-              <IconButton
-                onClick={() => setDrawerOpen(true)}
-                style={{
-                  color: isSticky ? "rgba(246, 246, 233, 1)" : "#0E460E",
-                }}
-              >
-                <MenuIcon />
-              </IconButton>
-            ) : (
-              navigationData.map((item: NavigationItem) => (
-                <div key={item.text}>
-                  {item.route ? (
-                    <Link
-                      to={item.route as string}
-                      style={{ textDecoration: "none" }}
-                    >
+            </LogoContainer>
+            <div
+              style={{
+                marginLeft: "auto",
+                display: "flex",
+                marginTop: isSticky ? 0 : 5,
+              }}
+            >
+              {isMobileOrTablet ? (
+                <IconButton
+                  onClick={() => setDrawerOpen(true)}
+                  style={{
+                    color: isSticky ? "rgba(246, 246, 233, 1)" : "#0E460E",
+                  }}
+                >
+                  <MenuIcon />
+                </IconButton>
+              ) : (
+                navigationData.map((item: NavigationItem) => (
+                  <div key={item.text}>
+                    {item.route ? (
+                      <Link
+                        to={item.route as string}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Button
+                          aria-controls="simple-menu"
+                          aria-haspopup="true"
+                          onClick={handleClick}
+                          style={{
+                            margin: "0 10px",
+                            color: isSticky
+                              ? "rgba(246, 246, 233, 1)"
+                              : "#0E460E",
+                            fontWeight: "bold",
+                            fontSize: "1rem",
+                          }}
+                        >
+                          {item.text}
+                        </Button>
+                      </Link>
+                    ) : (
                       <Button
                         aria-controls="simple-menu"
                         aria-haspopup="true"
@@ -155,101 +204,89 @@ const NavigationBar: React.FC = () => {
                       >
                         {item.text}
                       </Button>
-                    </Link>
-                  ) : (
-                    <Button
-                      aria-controls="simple-menu"
-                      aria-haspopup="true"
-                      onClick={handleClick}
-                      style={{
-                        margin: "0 10px",
-                        color: isSticky ? "rgba(246, 246, 233, 1)" : "#0E460E",
-                        fontWeight: "bold",
-                        fontSize: "1rem",
-                      }}
-                    >
-                      {item.text}
-                    </Button>
-                  )}
+                    )}
 
-                  {item.subitems && (
-                    <Menu
-                      id="simple-menu"
-                      anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                    >
-                      {isMobileOrTablet ? (
-                        <div>
-                          <ListItem onClick={handleSubItemClick}>
-                            <ListItemText
-                              primary={item.text}
-                              primaryTypographyProps={{
-                                color: "primary",
-                                variant: "button",
-                              }}
-                            />
-                            {subItemOpen ? <ExpandLess /> : <ExpandMore />}
-                          </ListItem>
-                          <Collapse
-                            in={subItemOpen}
-                            timeout="auto"
-                            unmountOnExit
-                          >
-                            <List>
-                              {item.subitems.map((subitem: NavigationItem) => (
-                                <Link
-                                  to={subitem.route as string}
-                                  key={subitem.text}
-                                  style={{
-                                    textDecoration: "none",
-                                    fontWeight: "bold",
-                                    fontSize: "1rem",
-                                  }}
-                                >
-                                  <MenuItem
-                                    onClick={handleClose}
-                                    sx={{
-                                      color: "#0E460E",
-                                    }}
-                                  >
-                                    {subitem.text}
-                                  </MenuItem>
-                                </Link>
-                              ))}
-                            </List>
-                          </Collapse>
-                        </div>
-                      ) : (
-                        item.subitems.map((subitem: NavigationItem) => (
-                          <Link
-                            to={subitem.route as string}
-                            key={subitem.text}
-                            style={{
-                              textDecoration: "none",
-                              fontWeight: "bold",
-                              fontSize: "1rem",
-                            }}
-                          >
-                            <MenuItem
-                              onClick={handleClose}
-                              sx={{
-                                color: "#0E460E",
+                    {item.subitems && (
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                      >
+                        {isMobileOrTablet ? (
+                          <div>
+                            <ListItem onClick={handleSubItemClick}>
+                              <ListItemText
+                                primary={item.text}
+                                primaryTypographyProps={{
+                                  color: "primary",
+                                  variant: "button",
+                                }}
+                              />
+                              {subItemOpen ? <ExpandLess /> : <ExpandMore />}
+                            </ListItem>
+                            <Collapse
+                              in={subItemOpen}
+                              timeout="auto"
+                              unmountOnExit
+                            >
+                              <List>
+                                {item.subitems.map(
+                                  (subitem: NavigationItem) => (
+                                    <Link
+                                      to={subitem.route as string}
+                                      key={subitem.text}
+                                      style={{
+                                        textDecoration: "none",
+                                        fontWeight: "bold",
+                                        fontSize: "1rem",
+                                      }}
+                                    >
+                                      <MenuItem
+                                        onClick={handleClose}
+                                        sx={{
+                                          color: "#0E460E",
+                                        }}
+                                      >
+                                        {subitem.text}
+                                      </MenuItem>
+                                    </Link>
+                                  )
+                                )}
+                              </List>
+                            </Collapse>
+                          </div>
+                        ) : (
+                          item.subitems.map((subitem: NavigationItem) => (
+                            <Link
+                              to={subitem.route as string}
+                              key={subitem.text}
+                              style={{
+                                textDecoration: "none",
+                                fontWeight: "bold",
+                                fontSize: "1rem",
                               }}
                             >
-                              {subitem.text}
-                            </MenuItem>
-                          </Link>
-                        ))
-                      )}
-                    </Menu>
-                  )}
-                </div>
-              ))
-            )}
-          </div>
-        </Toolbar>
+                              <MenuItem
+                                onClick={handleClose}
+                                sx={{
+                                  color: "#0E460E",
+                                }}
+                              >
+                                {subitem.text}
+                              </MenuItem>
+                            </Link>
+                          ))
+                        )}
+                      </Menu>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          </Toolbar>
+        </AnimationContainer>
       </AppBar>
       <Drawer
         anchor="right"
